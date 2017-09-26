@@ -1,0 +1,24 @@
+#lang racket
+
+; nom1
+; nom2
+
+(provide reverse-tout)
+(require (file "codedesdiapositives.rkt"))
+
+Vous pouvez choisir entre l'un des gabarits suivants.
+Supprimez celui que vous n'utilisez pas.
+
+
+(define reverse-tout
+  (λ (ls)
+    
+    (define iter
+      (λ (in out)
+        "votre code"))
+    
+    "votre code"))
+
+(define reverse-tout
+  (λ (ls)
+    "votre code"))
