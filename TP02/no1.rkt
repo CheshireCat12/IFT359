@@ -19,5 +19,3 @@
           [(pair? (car in)) (iter (cdr in) (cons (iter (car in) '()) out))]
           [else(iter (cdr in) (cons (car in) out))])))
     (iter ls '())))
-
-
