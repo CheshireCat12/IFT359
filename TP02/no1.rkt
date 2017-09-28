@@ -6,10 +6,6 @@
 (provide reverse-tout)
 (require (file "codedesdiapositives.rkt"))
 
-;Vous pouvez choisir entre l'un des gabarits suivants.
-;Supprimez celui que vous n'utilisez pas.
-
-
 (define reverse-tout
   (λ (ls)
     (define iter

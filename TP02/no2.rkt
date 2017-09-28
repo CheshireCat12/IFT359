@@ -39,10 +39,5 @@
          )        
        ]
       )
-      
-
-
     ))
-(intersection3 '(1 5 8 12) '(1 2 5 8) '(1 8)) ;renvoie (1 8)
-(intersection3 '(1 5 8 12) '(1 2 5 9) '(1 8)) ; renvoie (1)
-(intersection3 '(2 5 8 12) '(1 2 5 9) '() ) ; renvoie ()
+
