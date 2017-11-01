@@ -28,6 +28,3 @@
           [else(foldr iter oldLs newLs)])))
     (foldr iter null arbre)))
 
-(flatten1 '(1 3 5 (6 7 8)))
-(flatten2 '(1 3 5 (6 7 8)))
-

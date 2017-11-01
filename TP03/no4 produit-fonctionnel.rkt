@@ -11,7 +11,5 @@
   (λ func
     (foldr compose (λ(x) x) func)))
 
-((produit-fonctionnel-a (list add1 sqr (curry * 2))) 1)
-((produit-fonctionnel-b add1 sqr (curry * 2)) 1)
 
 

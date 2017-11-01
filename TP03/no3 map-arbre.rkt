@@ -12,6 +12,4 @@
       [(null? arbre) '()]
       [(atom? (car arbre)) (cons (proc (car arbre)) (map-arbre proc (cdr arbre)))]
       [else(cons (map-arbre proc (car arbre)) (map-arbre proc (cdr arbre)))])))
-
-(map-arbre sqr '(1(2(3))()4 5))
-(map-arbre number->string '(1(2(3))()4 5))
+)
