@@ -33,18 +33,6 @@
         '())
     ))
 
-
-(define produit-cartésien2
-  (λ ls
-    (define iter
-      (λ(mainList produit secList)
-        (cond
-          [(null? mainList) produit (displayln secList)]
-          
-          [else (iter (cdr mainList)  (map list (car mainList)) (append secList (map list (car mainList))))])))
-    (iter ls '() '())
-    ))
-
 (produit-cartésien )
 
 (produit-cartésien '(X Y Z))
