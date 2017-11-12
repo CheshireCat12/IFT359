@@ -1,0 +1,9 @@
+(define x 5)
+(define f 
+  (λ (u v)
+    (define z 5)
+    (let ([w (* x z)])
+      (define p 7)
+      (* u v z w p))))
+
+(f 1 2)

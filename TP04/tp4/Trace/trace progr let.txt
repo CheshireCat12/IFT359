@@ -1,0 +1,165 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien fn --> undefined 
+
+-- new input --
+Évaluation de (define fn (let ((x 3) (y 7)) (λ (a b) (displayln (+ a b)) (set! x (+ a b)) (set! y (- a b)) (list x y))))
+  Évaluation de (let ((x 3) (y 7)) (λ (a b) (displayln (+ a b)) (set! x (+ a b)) (set! y (- a b)) (list x y)))
+  Ré-écriture du let sous forme ((λ (...) ...)...)
+  Évaluation de ((λ (x y) (λ (a b) (displayln (+ a b)) (set! x (+ a b)) (set! y (- a b)) (list x y))) 3 7)
+    Évaluation de (λ (x y) (λ (a b) (displayln (+ a b)) (set! x (+ a b)) (set! y (- a b)) (list x y)))
+    --> procédure
+           para : (x y) 
+           body : (λ (a b) (displayln (+ a b)) (set! x (+ a b)) (set! y (- a b)) (list x y)) 
+           env  : 0 
+    Évaluation de 3
+    --> 3
+    Évaluation de 7
+    --> 7
+    Création de env no 1 avec parent 0
+    Dans env 1
+    ajout, dans env 1, du lien x --> 3 
+    ajout, dans env 1, du lien y --> 7 
+    Évaluation de (λ (a b) (displayln (+ a b)) (set! x (+ a b)) (set! y (- a b)) (list x y))
+    --> procédure
+           para : (a b) 
+           body : (displayln (+ a b)) 
+                  (set! x (+ a b)) 
+                  (set! y (- a b)) 
+                  (list x y) 
+           env  : 1 
+    Retour à env 0
+  complétion, dans env 0, du lien fn --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (quote (+ 3 4))
+--> (quote (+ 3 4))
+
+-- new input --
+Évaluation de (fn (+ 4 5) 2)
+  Évaluation de fn
+  cherche l'identificateur "fn" dans env 0 :
+  --> procédure
+         para : (a b) 
+         body : (displayln (+ a b)) 
+                (set! x (+ a b)) 
+                (set! y (- a b)) 
+                (list x y) 
+         env  : 1 
+  Évaluation de (+ 4 5)
+    Évaluation de +
+    cherche l'identificateur "+" dans env 0 :
+     --> (primitive #<procedure:+>)
+    Évaluation de 4
+    --> 4
+    Évaluation de 5
+    --> 5
+    Dans env-global
+    Évaluation de ((primitive #<procedure:+>) 4 5) 
+    --> 9
+    Retour à env 0
+  Évaluation de 2
+  --> 2
+  Création de env no 2 avec parent 1
+  Dans env 2
+  ajout, dans env 2, du lien a --> 9 
+  ajout, dans env 2, du lien b --> 2 
+  Évaluation de (displayln (+ a b))
+    Évaluation de displayln
+    cherche l'identificateur "displayln" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "displayln" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "displayln" dans env 0 :
+         --> (primitive #<procedure:displayln>)
+    Évaluation de (+ a b)
+      Évaluation de +
+      cherche l'identificateur "+" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "+" dans env 1 :
+          cherche dans parent 
+          cherche l'identificateur "+" dans env 0 :
+           --> (primitive #<procedure:+>)
+      Évaluation de a
+      cherche l'identificateur "a" dans env 2 :
+       --> 9
+      Évaluation de b
+      cherche l'identificateur "b" dans env 2 :
+       --> 2
+      Dans env-global
+      Évaluation de ((primitive #<procedure:+>) 9 2) 
+      --> 11
+      Retour à env 2
+    Dans env-global
+    Évaluation de ((primitive #<procedure:displayln>) 11) 
+    --> #<void>
+    Retour à env 2
+  Évaluation de (set! x (+ a b))
+  Évaluation de (+ a b)
+    Évaluation de +
+    cherche l'identificateur "+" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "+" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "+" dans env 0 :
+         --> (primitive #<procedure:+>)
+    Évaluation de a
+    cherche l'identificateur "a" dans env 2 :
+     --> 9
+    Évaluation de b
+    cherche l'identificateur "b" dans env 2 :
+     --> 2
+    Dans env-global
+    Évaluation de ((primitive #<procedure:+>) 9 2) 
+    --> 11
+    Retour à env 2
+  cherche l'identificateur "x" dans env 2 :
+  cherche dans parent i.e. env 1
+  trouvé (x --> 3)
+  modification, dans env 2, du lien, maintenant x --> 11 
+  Évaluation de (set! y (- a b))
+  Évaluation de (- a b)
+    Évaluation de -
+    cherche l'identificateur "-" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "-" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "-" dans env 0 :
+         --> (primitive #<procedure:->)
+    Évaluation de a
+    cherche l'identificateur "a" dans env 2 :
+     --> 9
+    Évaluation de b
+    cherche l'identificateur "b" dans env 2 :
+     --> 2
+    Dans env-global
+    Évaluation de ((primitive #<procedure:->) 9 2) 
+    --> 7
+    Retour à env 2
+  cherche l'identificateur "y" dans env 2 :
+  cherche dans parent i.e. env 1
+  trouvé (y --> 7)
+  modification, dans env 2, du lien, maintenant y --> 7 
+  Évaluation de (list x y)
+    Évaluation de list
+    cherche l'identificateur "list" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "list" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "list" dans env 0 :
+         --> (primitive #<procedure:list>)
+    Évaluation de x
+    cherche l'identificateur "x" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "x" dans env 1 :
+       --> 3
+    Évaluation de y
+    cherche l'identificateur "y" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "y" dans env 1 :
+       --> 7
+    Dans env-global
+    Évaluation de ((primitive #<procedure:list>) 3 7) 
+    --> (3 7)
+    Retour à env 2
+  Retour à env 0

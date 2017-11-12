@@ -1,0 +1,10 @@
+(define paire? "je suis le paire? définie dans env 0")
+(letrec ([paire? (λ (n) (if (= n 0)
+                             #t
+                             (impaire? (- n 1))))]
+          [impaire? (λ (n) (if (= n 0)
+                             #f
+                             (paire? (- n 1))))])
+   (paire? 1))
+ 
+paire?

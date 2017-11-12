@@ -1,0 +1,8 @@
+(define foldl*
+    (λ (oper debut range)
+      (if (null? range)
+          debut
+          (foldl* oper (oper (car range) debut)(cdr range)))))
+(foldl* + 0 (list 1 2 3 4))
+stop
+ 

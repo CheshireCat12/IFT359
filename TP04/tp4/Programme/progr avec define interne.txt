@@ -1,0 +1,5 @@
+(let ([a 1])
+  (define x 2)
+  (+ 3 x)
+  (define y 7)
+  (+ x y))

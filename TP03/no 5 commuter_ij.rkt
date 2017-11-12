@@ -1,6 +1,6 @@
 #lang racket
-(displayln "André Mayers")
-(displayln "Diane Laroche")
+;Chea, Dany 17 133 040
+;Gillioz, Anthony 17 133 031
 
 (provide commuter_ij)
 
@@ -20,6 +20,3 @@
            (iter2 (cons (car listEnd) listBegin)(cdr listEnd) commut (sub1 j))])))
     (iter e i j)
     ))
-
-
-(commuter_ij '((λ (x y) y x) 9 (5 6) (+ a b) 4)1 3)

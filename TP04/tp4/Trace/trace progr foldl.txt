@@ -1,0 +1,341 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien foldl* --> undefined 
+
+-- new input --
+Évaluation de (define foldl* (λ (oper debut range) (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range)))))
+  Évaluation de (λ (oper debut range) (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))))
+  --> procédure
+         para : (oper debut range) 
+         body : (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))) 
+         env  : 0 
+  complétion, dans env 0, du lien foldl* --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (foldl* + 0 (list 1 2 3 4))
+  Évaluation de foldl*
+  cherche l'identificateur "foldl*" dans env 0 :
+  --> procédure
+         para : (oper debut range) 
+         body : (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))) 
+         env  : 0 
+  Évaluation de +
+  cherche l'identificateur "+" dans env 0 :
+   --> (primitive #<procedure:+>)
+  Évaluation de 0
+  --> 0
+  Évaluation de (list 1 2 3 4)
+    Évaluation de list
+    cherche l'identificateur "list" dans env 0 :
+     --> (primitive #<procedure:list>)
+    Évaluation de 1
+    --> 1
+    Évaluation de 2
+    --> 2
+    Évaluation de 3
+    --> 3
+    Évaluation de 4
+    --> 4
+    Dans env-global
+    Évaluation de ((primitive #<procedure:list>) 1 2 3 4) 
+    --> (1 2 3 4)
+    Retour à env 0
+  Création de env no 1 avec parent 0
+  Dans env 1
+  ajout, dans env 1, du lien oper --> (primitive #<procedure:+>) 
+  ajout, dans env 1, du lien debut --> 0 
+  ajout, dans env 1, du lien range --> (1 2 3 4) 
+  Évaluation de (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range)))
+  Évaluation de (null? range)
+    Évaluation de null?
+    cherche l'identificateur "null?" dans env 1 :
+      cherche dans parent 
+      cherche l'identificateur "null?" dans env 0 :
+       --> (primitive #<procedure:null?>)
+    Évaluation de range
+    cherche l'identificateur "range" dans env 1 :
+     --> (1 2 3 4)
+    Dans env-global
+    Évaluation de ((primitive #<procedure:null?>) (1 2 3 4)) 
+    --> #f
+    Retour à env 1
+  Évaluation de (foldl* oper (oper (car range) debut) (cdr range))
+    Évaluation de foldl*
+    cherche l'identificateur "foldl*" dans env 1 :
+      cherche dans parent 
+      cherche l'identificateur "foldl*" dans env 0 :
+      --> procédure
+             para : (oper debut range) 
+             body : (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))) 
+             env  : 0 
+    Évaluation de oper
+    cherche l'identificateur "oper" dans env 1 :
+     --> (primitive #<procedure:+>)
+    Évaluation de (oper (car range) debut)
+      Évaluation de oper
+      cherche l'identificateur "oper" dans env 1 :
+       --> (primitive #<procedure:+>)
+      Évaluation de (car range)
+        Évaluation de car
+        cherche l'identificateur "car" dans env 1 :
+          cherche dans parent 
+          cherche l'identificateur "car" dans env 0 :
+           --> (primitive #<procedure:car>)
+        Évaluation de range
+        cherche l'identificateur "range" dans env 1 :
+         --> (1 2 3 4)
+        Dans env-global
+        Évaluation de ((primitive #<procedure:car>) (1 2 3 4)) 
+        --> 1
+        Retour à env 1
+      Évaluation de debut
+      cherche l'identificateur "debut" dans env 1 :
+       --> 0
+      Dans env-global
+      Évaluation de ((primitive #<procedure:+>) 1 0) 
+      --> 1
+      Retour à env 1
+    Évaluation de (cdr range)
+      Évaluation de cdr
+      cherche l'identificateur "cdr" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "cdr" dans env 0 :
+         --> (primitive #<procedure:cdr>)
+      Évaluation de range
+      cherche l'identificateur "range" dans env 1 :
+       --> (1 2 3 4)
+      Dans env-global
+      Évaluation de ((primitive #<procedure:cdr>) (1 2 3 4)) 
+      --> (2 3 4)
+      Retour à env 1
+    Création de env no 2 avec parent 0
+    Dans env 2
+    ajout, dans env 2, du lien oper --> (primitive #<procedure:+>) 
+    ajout, dans env 2, du lien debut --> 1 
+    ajout, dans env 2, du lien range --> (2 3 4) 
+    Évaluation de (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range)))
+    Évaluation de (null? range)
+      Évaluation de null?
+      cherche l'identificateur "null?" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "null?" dans env 0 :
+         --> (primitive #<procedure:null?>)
+      Évaluation de range
+      cherche l'identificateur "range" dans env 2 :
+       --> (2 3 4)
+      Dans env-global
+      Évaluation de ((primitive #<procedure:null?>) (2 3 4)) 
+      --> #f
+      Retour à env 2
+    Évaluation de (foldl* oper (oper (car range) debut) (cdr range))
+      Évaluation de foldl*
+      cherche l'identificateur "foldl*" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "foldl*" dans env 0 :
+        --> procédure
+               para : (oper debut range) 
+               body : (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))) 
+               env  : 0 
+      Évaluation de oper
+      cherche l'identificateur "oper" dans env 2 :
+       --> (primitive #<procedure:+>)
+      Évaluation de (oper (car range) debut)
+        Évaluation de oper
+        cherche l'identificateur "oper" dans env 2 :
+         --> (primitive #<procedure:+>)
+        Évaluation de (car range)
+          Évaluation de car
+          cherche l'identificateur "car" dans env 2 :
+            cherche dans parent 
+            cherche l'identificateur "car" dans env 0 :
+             --> (primitive #<procedure:car>)
+          Évaluation de range
+          cherche l'identificateur "range" dans env 2 :
+           --> (2 3 4)
+          Dans env-global
+          Évaluation de ((primitive #<procedure:car>) (2 3 4)) 
+          --> 2
+          Retour à env 2
+        Évaluation de debut
+        cherche l'identificateur "debut" dans env 2 :
+         --> 1
+        Dans env-global
+        Évaluation de ((primitive #<procedure:+>) 2 1) 
+        --> 3
+        Retour à env 2
+      Évaluation de (cdr range)
+        Évaluation de cdr
+        cherche l'identificateur "cdr" dans env 2 :
+          cherche dans parent 
+          cherche l'identificateur "cdr" dans env 0 :
+           --> (primitive #<procedure:cdr>)
+        Évaluation de range
+        cherche l'identificateur "range" dans env 2 :
+         --> (2 3 4)
+        Dans env-global
+        Évaluation de ((primitive #<procedure:cdr>) (2 3 4)) 
+        --> (3 4)
+        Retour à env 2
+      Création de env no 3 avec parent 0
+      Dans env 3
+      ajout, dans env 3, du lien oper --> (primitive #<procedure:+>) 
+      ajout, dans env 3, du lien debut --> 3 
+      ajout, dans env 3, du lien range --> (3 4) 
+      Évaluation de (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range)))
+      Évaluation de (null? range)
+        Évaluation de null?
+        cherche l'identificateur "null?" dans env 3 :
+          cherche dans parent 
+          cherche l'identificateur "null?" dans env 0 :
+           --> (primitive #<procedure:null?>)
+        Évaluation de range
+        cherche l'identificateur "range" dans env 3 :
+         --> (3 4)
+        Dans env-global
+        Évaluation de ((primitive #<procedure:null?>) (3 4)) 
+        --> #f
+        Retour à env 3
+      Évaluation de (foldl* oper (oper (car range) debut) (cdr range))
+        Évaluation de foldl*
+        cherche l'identificateur "foldl*" dans env 3 :
+          cherche dans parent 
+          cherche l'identificateur "foldl*" dans env 0 :
+          --> procédure
+                 para : (oper debut range) 
+                 body : (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))) 
+                 env  : 0 
+        Évaluation de oper
+        cherche l'identificateur "oper" dans env 3 :
+         --> (primitive #<procedure:+>)
+        Évaluation de (oper (car range) debut)
+          Évaluation de oper
+          cherche l'identificateur "oper" dans env 3 :
+           --> (primitive #<procedure:+>)
+          Évaluation de (car range)
+            Évaluation de car
+            cherche l'identificateur "car" dans env 3 :
+              cherche dans parent 
+              cherche l'identificateur "car" dans env 0 :
+               --> (primitive #<procedure:car>)
+            Évaluation de range
+            cherche l'identificateur "range" dans env 3 :
+             --> (3 4)
+            Dans env-global
+            Évaluation de ((primitive #<procedure:car>) (3 4)) 
+            --> 3
+            Retour à env 3
+          Évaluation de debut
+          cherche l'identificateur "debut" dans env 3 :
+           --> 3
+          Dans env-global
+          Évaluation de ((primitive #<procedure:+>) 3 3) 
+          --> 6
+          Retour à env 3
+        Évaluation de (cdr range)
+          Évaluation de cdr
+          cherche l'identificateur "cdr" dans env 3 :
+            cherche dans parent 
+            cherche l'identificateur "cdr" dans env 0 :
+             --> (primitive #<procedure:cdr>)
+          Évaluation de range
+          cherche l'identificateur "range" dans env 3 :
+           --> (3 4)
+          Dans env-global
+          Évaluation de ((primitive #<procedure:cdr>) (3 4)) 
+          --> (4)
+          Retour à env 3
+        Création de env no 4 avec parent 0
+        Dans env 4
+        ajout, dans env 4, du lien oper --> (primitive #<procedure:+>) 
+        ajout, dans env 4, du lien debut --> 6 
+        ajout, dans env 4, du lien range --> (4) 
+        Évaluation de (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range)))
+        Évaluation de (null? range)
+          Évaluation de null?
+          cherche l'identificateur "null?" dans env 4 :
+            cherche dans parent 
+            cherche l'identificateur "null?" dans env 0 :
+             --> (primitive #<procedure:null?>)
+          Évaluation de range
+          cherche l'identificateur "range" dans env 4 :
+           --> (4)
+          Dans env-global
+          Évaluation de ((primitive #<procedure:null?>) (4)) 
+          --> #f
+          Retour à env 4
+        Évaluation de (foldl* oper (oper (car range) debut) (cdr range))
+          Évaluation de foldl*
+          cherche l'identificateur "foldl*" dans env 4 :
+            cherche dans parent 
+            cherche l'identificateur "foldl*" dans env 0 :
+            --> procédure
+                   para : (oper debut range) 
+                   body : (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range))) 
+                   env  : 0 
+          Évaluation de oper
+          cherche l'identificateur "oper" dans env 4 :
+           --> (primitive #<procedure:+>)
+          Évaluation de (oper (car range) debut)
+            Évaluation de oper
+            cherche l'identificateur "oper" dans env 4 :
+             --> (primitive #<procedure:+>)
+            Évaluation de (car range)
+              Évaluation de car
+              cherche l'identificateur "car" dans env 4 :
+                cherche dans parent 
+                cherche l'identificateur "car" dans env 0 :
+                 --> (primitive #<procedure:car>)
+              Évaluation de range
+              cherche l'identificateur "range" dans env 4 :
+               --> (4)
+              Dans env-global
+              Évaluation de ((primitive #<procedure:car>) (4)) 
+              --> 4
+              Retour à env 4
+            Évaluation de debut
+            cherche l'identificateur "debut" dans env 4 :
+             --> 6
+            Dans env-global
+            Évaluation de ((primitive #<procedure:+>) 4 6) 
+            --> 10
+            Retour à env 4
+          Évaluation de (cdr range)
+            Évaluation de cdr
+            cherche l'identificateur "cdr" dans env 4 :
+              cherche dans parent 
+              cherche l'identificateur "cdr" dans env 0 :
+               --> (primitive #<procedure:cdr>)
+            Évaluation de range
+            cherche l'identificateur "range" dans env 4 :
+             --> (4)
+            Dans env-global
+            Évaluation de ((primitive #<procedure:cdr>) (4)) 
+            --> ()
+            Retour à env 4
+          Création de env no 5 avec parent 0
+          Dans env 5
+          ajout, dans env 5, du lien oper --> (primitive #<procedure:+>) 
+          ajout, dans env 5, du lien debut --> 10 
+          ajout, dans env 5, du lien range --> () 
+          Évaluation de (if (null? range) debut (foldl* oper (oper (car range) debut) (cdr range)))
+          Évaluation de (null? range)
+            Évaluation de null?
+            cherche l'identificateur "null?" dans env 5 :
+              cherche dans parent 
+              cherche l'identificateur "null?" dans env 0 :
+               --> (primitive #<procedure:null?>)
+            Évaluation de range
+            cherche l'identificateur "range" dans env 5 :
+             --> ()
+            Dans env-global
+            Évaluation de ((primitive #<procedure:null?>) ()) 
+            --> #t
+            Retour à env 5
+          Évaluation de debut
+          cherche l'identificateur "debut" dans env 5 :
+           --> 10
+          Retour à env 4
+        Retour à env 3
+      Retour à env 2
+    Retour à env 1
+  Retour à env 0

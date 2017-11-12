@@ -1,0 +1,68 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien x --> undefined 
+
+-- new input --
+Évaluation de (letrec ((x 3) (y (λ (z) (+ z 3)))) (list x (y 1000)))
+  Création de env no 1 avec parent 0
+  Dans env 1
+  ajout, dans env 1, du lien x --> undefined 
+  ajout, dans env 1, du lien y --> undefined 
+  Évaluation de 3
+  --> 3
+  modification, dans env 1, du lien, maintenant x --> 3 
+  Évaluation de (λ (z) (+ z 3))
+  --> procédure
+         para : (z) 
+         body : (+ z 3) 
+         env  : 1 
+  modification, dans env 1, du lien, maintenant y --> (λ (z) (+ z 3) ...) env-no: 1 
+  Évaluation de (list x (y 1000))
+    Évaluation de list
+    cherche l'identificateur "list" dans env 1 :
+      cherche dans parent 
+      cherche l'identificateur "list" dans env 0 :
+       --> (primitive #<procedure:list>)
+    Évaluation de x
+    cherche l'identificateur "x" dans env 1 :
+     --> 3
+    Évaluation de (y 1000)
+      Évaluation de y
+      cherche l'identificateur "y" dans env 1 :
+      --> procédure
+             para : (z) 
+             body : (+ z 3) 
+             env  : 1 
+      Évaluation de 1000
+      --> 1000
+      Création de env no 2 avec parent 1
+      Dans env 2
+      ajout, dans env 2, du lien z --> 1000 
+      Évaluation de (+ z 3)
+        Évaluation de +
+        cherche l'identificateur "+" dans env 2 :
+          cherche dans parent 
+          cherche l'identificateur "+" dans env 1 :
+            cherche dans parent 
+            cherche l'identificateur "+" dans env 0 :
+             --> (primitive #<procedure:+>)
+        Évaluation de z
+        cherche l'identificateur "z" dans env 2 :
+         --> 1000
+        Évaluation de 3
+        --> 3
+        Dans env-global
+        Évaluation de ((primitive #<procedure:+>) 1000 3) 
+        --> 1003
+        Retour à env 2
+      Retour à env 1
+    Dans env-global
+    Évaluation de ((primitive #<procedure:list>) 3 1003) 
+    --> (3 1003)
+    Retour à env 1
+
+-- new input --
+Évaluation de (define x 1234)
+  Évaluation de 1234
+  --> 1234
+  complétion, dans env 0, du lien x --> 1234 
+--> #<void>

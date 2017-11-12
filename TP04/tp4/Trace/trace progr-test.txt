@@ -1,0 +1,20 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien paire? --> undefined 
+ajout, dans env 0, du lien paire1? --> undefined 
+
+-- new input --
+Évaluation de (define paire? je suis le paire? définie dans env 0)
+  Évaluation de je suis le paire? définie dans env 0
+  --> je suis le paire? définie dans env 0
+  complétion, dans env 0, du lien paire? --> je suis le paire? définie dans env 0 
+--> #<void>
+
+-- new input --
+Évaluation de (define paire1? (λ (n) (if (= n 0) #t (impaire? (- n 1)))))
+  Évaluation de (λ (n) (if (= n 0) #t (impaire? (- n 1))))
+  --> procédure
+         para : (n) 
+         body : (if (= n 0) #t (impaire? (- n 1))) 
+         env  : 0 
+  complétion, dans env 0, du lien paire1? --> procédure qui vient d'être retournée 
+--> #<void>

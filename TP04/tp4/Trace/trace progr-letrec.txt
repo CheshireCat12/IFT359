@@ -1,0 +1,114 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien paire? --> undefined 
+
+-- new input --
+Évaluation de (define paire? je suis le paire? définie dans env 0)
+  Évaluation de je suis le paire? définie dans env 0
+  --> je suis le paire? définie dans env 0
+  complétion, dans env 0, du lien paire? --> je suis le paire? définie dans env 0 
+--> #<void>
+
+-- new input --
+Évaluation de (letrec ((paire? (λ (n) (if (= n 0) #t (impaire? (- n 1))))) (impaire? (λ (n) (if (= n 0) #f (paire? (- n 1)))))) (paire? 1))
+  Création de env no 1 avec parent 0
+  Dans env 1
+  ajout, dans env 1, du lien paire? --> () 
+  ajout, dans env 1, du lien impaire? --> () 
+  Évaluation de (λ (n) (if (= n 0) #t (impaire? (- n 1))))
+  --> procédure
+         para : (n) 
+         body : (if (= n 0) #t (impaire? (- n 1))) 
+         env  : 1 
+  modification, dans env 1, du lien, maintenant paire? --> (λ (n) (if (= n 0) #t (impaire? (- n 1)))) 
+  Évaluation de (λ (n) (if (= n 0) #f (paire? (- n 1))))
+  --> procédure
+         para : (n) 
+         body : (if (= n 0) #f (paire? (- n 1))) 
+         env  : 1 
+  modification, dans env 1, du lien, maintenant impaire? --> (λ (n) (if (= n 0) #f (paire? (- n 1)))) 
+  Évaluation de (paire? 1)
+    Évaluation de paire?
+    cherche l'identificateur "paire?" dans env 1 :
+    --> procédure
+           para : (n) 
+           body : (if (= n 0) #t (impaire? (- n 1))) 
+           env  : 1 
+    Évaluation de 1
+    --> 1
+    Création de env no 2 avec parent 1
+    Dans env 2
+    ajout, dans env 2, du lien n --> 1 
+    Évaluation de (if (= n 0) #t (impaire? (- n 1)))
+    Évaluation de (= n 0)
+      Évaluation de =
+      cherche l'identificateur "=" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "=" dans env 1 :
+          cherche dans parent 
+          cherche l'identificateur "=" dans env 0 :
+           --> (primitive #<procedure:=>)
+      Évaluation de n
+      cherche l'identificateur "n" dans env 2 :
+       --> 1
+      Évaluation de 0
+      --> 0
+      Dans env-global
+      Évaluation de ((primitive #<procedure:=>) 1 0) 
+      --> #f
+      Retour à env 2
+    Évaluation de (impaire? (- n 1))
+      Évaluation de impaire?
+      cherche l'identificateur "impaire?" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "impaire?" dans env 1 :
+        --> procédure
+               para : (n) 
+               body : (if (= n 0) #f (paire? (- n 1))) 
+               env  : 1 
+      Évaluation de (- n 1)
+        Évaluation de -
+        cherche l'identificateur "-" dans env 2 :
+          cherche dans parent 
+          cherche l'identificateur "-" dans env 1 :
+            cherche dans parent 
+            cherche l'identificateur "-" dans env 0 :
+             --> (primitive #<procedure:->)
+        Évaluation de n
+        cherche l'identificateur "n" dans env 2 :
+         --> 1
+        Évaluation de 1
+        --> 1
+        Dans env-global
+        Évaluation de ((primitive #<procedure:->) 1 1) 
+        --> 0
+        Retour à env 2
+      Création de env no 3 avec parent 1
+      Dans env 3
+      ajout, dans env 3, du lien n --> 0 
+      Évaluation de (if (= n 0) #f (paire? (- n 1)))
+      Évaluation de (= n 0)
+        Évaluation de =
+        cherche l'identificateur "=" dans env 3 :
+          cherche dans parent 
+          cherche l'identificateur "=" dans env 1 :
+            cherche dans parent 
+            cherche l'identificateur "=" dans env 0 :
+             --> (primitive #<procedure:=>)
+        Évaluation de n
+        cherche l'identificateur "n" dans env 3 :
+         --> 0
+        Évaluation de 0
+        --> 0
+        Dans env-global
+        Évaluation de ((primitive #<procedure:=>) 0 0) 
+        --> #t
+        Retour à env 3
+      Évaluation de #f
+      --> #f
+      Retour à env 2
+    Retour à env 1
+  
+-- new input --
+  Évaluation de paire?
+  cherche l'identificateur "paire?" dans env 0 :
+   --> je suis le paire? définie dans env 0

@@ -1,0 +1,167 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien square --> undefined 
+ajout, dans env 0, du lien sum-of-squares --> undefined 
+ajout, dans env 0, du lien f --> undefined 
+
+-- new input --
+Évaluation de (define square (λ (x) (* x x)))
+  Évaluation de (λ (x) (* x x))
+  --> procédure
+         para : (x) 
+         body : (* x x) 
+         env  : 0 
+  complétion, dans env 0, du lien square --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (define sum-of-squares (λ (x y) (+ (square x) (square y))))
+  Évaluation de (λ (x y) (+ (square x) (square y)))
+  --> procédure
+         para : (x y) 
+         body : (+ (square x) (square y)) 
+         env  : 0 
+  complétion, dans env 0, du lien sum-of-squares --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (define f (λ (a) (sum-of-squares (+ a 1) (* a 2))))
+  Évaluation de (λ (a) (sum-of-squares (+ a 1) (* a 2)))
+  --> procédure
+         para : (a) 
+         body : (sum-of-squares (+ a 1) (* a 2)) 
+         env  : 0 
+  complétion, dans env 0, du lien f --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (f 5)
+  Évaluation de f
+  cherche l'identificateur "f" dans env 0 :
+  --> procédure
+         para : (a) 
+         body : (sum-of-squares (+ a 1) (* a 2)) 
+         env  : 0 
+  Évaluation de 5
+  --> 5
+  Création de env no 1 avec parent 0
+  Dans env 1
+  ajout, dans env 1, du lien a --> 5 
+  Évaluation de (sum-of-squares (+ a 1) (* a 2))
+    Évaluation de sum-of-squares
+    cherche l'identificateur "sum-of-squares" dans env 1 :
+      cherche dans parent 
+      cherche l'identificateur "sum-of-squares" dans env 0 :
+      --> procédure
+             para : (x y) 
+             body : (+ (square x) (square y)) 
+             env  : 0 
+    Évaluation de (+ a 1)
+      Évaluation de +
+      cherche l'identificateur "+" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "+" dans env 0 :
+         --> (primitive #<procedure:+>)
+      Évaluation de a
+      cherche l'identificateur "a" dans env 1 :
+       --> 5
+      Évaluation de 1
+      --> 1
+      Dans env-global
+      Évaluation de ((primitive #<procedure:+>) 5 1) 
+      --> 6
+      Retour à env 1
+    Évaluation de (* a 2)
+      Évaluation de *
+      cherche l'identificateur "*" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "*" dans env 0 :
+         --> (primitive #<procedure:*>)
+      Évaluation de a
+      cherche l'identificateur "a" dans env 1 :
+       --> 5
+      Évaluation de 2
+      --> 2
+      Dans env-global
+      Évaluation de ((primitive #<procedure:*>) 5 2) 
+      --> 10
+      Retour à env 1
+    Création de env no 2 avec parent 0
+    Dans env 2
+    ajout, dans env 2, du lien x --> 6 
+    ajout, dans env 2, du lien y --> 10 
+    Évaluation de (+ (square x) (square y))
+      Évaluation de +
+      cherche l'identificateur "+" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "+" dans env 0 :
+         --> (primitive #<procedure:+>)
+      Évaluation de (square x)
+        Évaluation de square
+        cherche l'identificateur "square" dans env 2 :
+          cherche dans parent 
+          cherche l'identificateur "square" dans env 0 :
+          --> procédure
+                 para : (x) 
+                 body : (* x x) 
+                 env  : 0 
+        Évaluation de x
+        cherche l'identificateur "x" dans env 2 :
+         --> 6
+        Création de env no 3 avec parent 0
+        Dans env 3
+        ajout, dans env 3, du lien x --> 6 
+        Évaluation de (* x x)
+          Évaluation de *
+          cherche l'identificateur "*" dans env 3 :
+            cherche dans parent 
+            cherche l'identificateur "*" dans env 0 :
+             --> (primitive #<procedure:*>)
+          Évaluation de x
+          cherche l'identificateur "x" dans env 3 :
+           --> 6
+          Évaluation de x
+          cherche l'identificateur "x" dans env 3 :
+           --> 6
+          Dans env-global
+          Évaluation de ((primitive #<procedure:*>) 6 6) 
+          --> 36
+          Retour à env 3
+        Retour à env 2
+      Évaluation de (square y)
+        Évaluation de square
+        cherche l'identificateur "square" dans env 2 :
+          cherche dans parent 
+          cherche l'identificateur "square" dans env 0 :
+          --> procédure
+                 para : (x) 
+                 body : (* x x) 
+                 env  : 0 
+        Évaluation de y
+        cherche l'identificateur "y" dans env 2 :
+         --> 10
+        Création de env no 4 avec parent 0
+        Dans env 4
+        ajout, dans env 4, du lien x --> 10 
+        Évaluation de (* x x)
+          Évaluation de *
+          cherche l'identificateur "*" dans env 4 :
+            cherche dans parent 
+            cherche l'identificateur "*" dans env 0 :
+             --> (primitive #<procedure:*>)
+          Évaluation de x
+          cherche l'identificateur "x" dans env 4 :
+           --> 10
+          Évaluation de x
+          cherche l'identificateur "x" dans env 4 :
+           --> 10
+          Dans env-global
+          Évaluation de ((primitive #<procedure:*>) 10 10) 
+          --> 100
+          Retour à env 4
+        Retour à env 2
+      Dans env-global
+      Évaluation de ((primitive #<procedure:+>) 36 100) 
+      --> 136
+      Retour à env 2
+    Retour à env 1
+  Retour à env 0

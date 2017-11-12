@@ -1,0 +1,11 @@
+(define square
+  (λ (x)
+    (* x x)))
+(define sum-of-squares
+  (λ (x y)
+    (+ (square x) (square y))))
+(define f
+  (λ (a)
+    (sum-of-squares (+ a 1) (* a 2))))
+
+(f 5)

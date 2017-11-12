@@ -1,0 +1,171 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien x --> undefined 
+ajout, dans env 0, du lien f --> undefined 
+ajout, dans env 0, du lien g --> undefined 
+
+-- new input --
+Évaluation de (+ 3 4)
+  Évaluation de +
+  cherche l'identificateur "+" dans env 0 :
+   --> (primitive #<procedure:+>)
+  Évaluation de 3
+  --> 3
+  Évaluation de 4
+  --> 4
+  Dans env-global
+  Évaluation de ((primitive #<procedure:+>) 3 4) 
+  --> 7
+  Retour à env 0
+
+-- new input --
+Évaluation de (define x 7)
+  Évaluation de 7
+  --> 7
+  complétion, dans env 0, du lien x --> 7 
+--> #<void>
+
+-- new input --
+Évaluation de (define f (λ (biz) (+ x biz)))
+  Évaluation de (λ (biz) (+ x biz))
+  --> procédure
+         para : (biz) 
+         body : (+ x biz) 
+         env  : 0 
+  complétion, dans env 0, du lien f --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (f 5)
+  Évaluation de f
+  cherche l'identificateur "f" dans env 0 :
+  --> procédure
+         para : (biz) 
+         body : (+ x biz) 
+         env  : 0 
+  Évaluation de 5
+  --> 5
+  Création de env no 1 avec parent 0
+  Dans env 1
+  ajout, dans env 1, du lien biz --> 5 
+  Évaluation de (+ x biz)
+    Évaluation de +
+    cherche l'identificateur "+" dans env 1 :
+      cherche dans parent 
+      cherche l'identificateur "+" dans env 0 :
+       --> (primitive #<procedure:+>)
+    Évaluation de x
+    cherche l'identificateur "x" dans env 1 :
+      cherche dans parent 
+      cherche l'identificateur "x" dans env 0 :
+       --> 7
+    Évaluation de biz
+    cherche l'identificateur "biz" dans env 1 :
+     --> 5
+    Dans env-global
+    Évaluation de ((primitive #<procedure:+>) 7 5) 
+    --> 12
+    Retour à env 1
+  Retour à env 0
+
+-- new input --
+Évaluation de (define g (λ (u) (* (f u) (f u))))
+  Évaluation de (λ (u) (* (f u) (f u)))
+  --> procédure
+         para : (u) 
+         body : (* (f u) (f u)) 
+         env  : 0 
+  complétion, dans env 0, du lien g --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (g 2)
+  Évaluation de g
+  cherche l'identificateur "g" dans env 0 :
+  --> procédure
+         para : (u) 
+         body : (* (f u) (f u)) 
+         env  : 0 
+  Évaluation de 2
+  --> 2
+  Création de env no 2 avec parent 0
+  Dans env 2
+  ajout, dans env 2, du lien u --> 2 
+  Évaluation de (* (f u) (f u))
+    Évaluation de *
+    cherche l'identificateur "*" dans env 2 :
+      cherche dans parent 
+      cherche l'identificateur "*" dans env 0 :
+       --> (primitive #<procedure:*>)
+    Évaluation de (f u)
+      Évaluation de f
+      cherche l'identificateur "f" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "f" dans env 0 :
+        --> procédure
+               para : (biz) 
+               body : (+ x biz) 
+               env  : 0 
+      Évaluation de u
+      cherche l'identificateur "u" dans env 2 :
+       --> 2
+      Création de env no 3 avec parent 0
+      Dans env 3
+      ajout, dans env 3, du lien biz --> 2 
+      Évaluation de (+ x biz)
+        Évaluation de +
+        cherche l'identificateur "+" dans env 3 :
+          cherche dans parent 
+          cherche l'identificateur "+" dans env 0 :
+           --> (primitive #<procedure:+>)
+        Évaluation de x
+        cherche l'identificateur "x" dans env 3 :
+          cherche dans parent 
+          cherche l'identificateur "x" dans env 0 :
+           --> 7
+        Évaluation de biz
+        cherche l'identificateur "biz" dans env 3 :
+         --> 2
+        Dans env-global
+        Évaluation de ((primitive #<procedure:+>) 7 2) 
+        --> 9
+        Retour à env 3
+      Retour à env 2
+    Évaluation de (f u)
+      Évaluation de f
+      cherche l'identificateur "f" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "f" dans env 0 :
+        --> procédure
+               para : (biz) 
+               body : (+ x biz) 
+               env  : 0 
+      Évaluation de u
+      cherche l'identificateur "u" dans env 2 :
+       --> 2
+      Création de env no 4 avec parent 0
+      Dans env 4
+      ajout, dans env 4, du lien biz --> 2 
+      Évaluation de (+ x biz)
+        Évaluation de +
+        cherche l'identificateur "+" dans env 4 :
+          cherche dans parent 
+          cherche l'identificateur "+" dans env 0 :
+           --> (primitive #<procedure:+>)
+        Évaluation de x
+        cherche l'identificateur "x" dans env 4 :
+          cherche dans parent 
+          cherche l'identificateur "x" dans env 0 :
+           --> 7
+        Évaluation de biz
+        cherche l'identificateur "biz" dans env 4 :
+         --> 2
+        Dans env-global
+        Évaluation de ((primitive #<procedure:+>) 7 2) 
+        --> 9
+        Retour à env 4
+      Retour à env 2
+    Dans env-global
+    Évaluation de ((primitive #<procedure:*>) 9 9) 
+    --> 81
+    Retour à env 2
+  Retour à env 0

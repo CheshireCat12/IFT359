@@ -1,0 +1,116 @@
+Dans environnement global (no 0)
+ajout, dans env 0, du lien x --> undefined 
+ajout, dans env 0, du lien f --> undefined 
+
+-- new input --
+Évaluation de (define x 5)
+  Évaluation de 5
+  --> 5
+  complétion, dans env 0, du lien x --> 5 
+--> #<void>
+
+-- new input --
+Évaluation de (define f (λ (u v) (define z 5) (let ((w (* x z))) (define p 7) (* u v z w p))))
+  Évaluation de (λ (u v) (define z 5) (let ((w (* x z))) (define p 7) (* u v z w p)))
+  --> procédure
+         para : (u v) 
+         body : (define z 5) 
+                (let ((w (* x z))) (define p 7) (* u v z w p)) 
+         env  : 0 
+  complétion, dans env 0, du lien f --> procédure qui vient d'être retournée 
+--> #<void>
+
+-- new input --
+Évaluation de (f 1 2)
+  Évaluation de f
+  cherche l'identificateur "f" dans env 0 :
+  --> procédure
+         para : (u v) 
+         body : (define z 5) 
+                (let ((w (* x z))) (define p 7) (* u v z w p)) 
+         env  : 0 
+  Évaluation de 1
+  --> 1
+  Évaluation de 2
+  --> 2
+  Création de env no 1 avec parent 0
+  Dans env 1
+  ajout, dans env 1, du lien u --> 1 
+  ajout, dans env 1, du lien v --> 2 
+  ajout, dans env 1, du lien z --> undefined 
+  Évaluation de (define z 5)
+    Évaluation de 5
+    --> 5
+    complétion, dans env 1, du lien z --> 5 
+  --> #<void>
+  Évaluation de (let ((w (* x z))) (define p 7) (* u v z w p))
+  Ré-écriture du let sous forme ((λ (...) ...)...)
+  Évaluation de ((λ (w) (define p 7) (* u v z w p)) (* x z))
+    Évaluation de (λ (w) (define p 7) (* u v z w p))
+    --> procédure
+           para : (w) 
+           body : (define p 7) 
+                  (* u v z w p) 
+           env  : 1 
+    Évaluation de (* x z)
+      Évaluation de *
+      cherche l'identificateur "*" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "*" dans env 0 :
+         --> (primitive #<procedure:*>)
+      Évaluation de x
+      cherche l'identificateur "x" dans env 1 :
+        cherche dans parent 
+        cherche l'identificateur "x" dans env 0 :
+         --> 5
+      Évaluation de z
+      cherche l'identificateur "z" dans env 1 :
+       --> 5
+      Dans env-global
+      Évaluation de ((primitive #<procedure:*>) 5 5) 
+      --> 25
+      Retour à env 1
+    Création de env no 2 avec parent 1
+    Dans env 2
+    ajout, dans env 2, du lien w --> 25 
+    ajout, dans env 2, du lien p --> undefined 
+    Évaluation de (define p 7)
+      Évaluation de 7
+      --> 7
+      complétion, dans env 2, du lien p --> 7 
+    --> #<void>
+    Évaluation de (* u v z w p)
+      Évaluation de *
+      cherche l'identificateur "*" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "*" dans env 1 :
+          cherche dans parent 
+          cherche l'identificateur "*" dans env 0 :
+           --> (primitive #<procedure:*>)
+      Évaluation de u
+      cherche l'identificateur "u" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "u" dans env 1 :
+         --> 1
+      Évaluation de v
+      cherche l'identificateur "v" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "v" dans env 1 :
+         --> 2
+      Évaluation de z
+      cherche l'identificateur "z" dans env 2 :
+        cherche dans parent 
+        cherche l'identificateur "z" dans env 1 :
+         --> 5
+      Évaluation de w
+      cherche l'identificateur "w" dans env 2 :
+       --> 25
+      Évaluation de p
+      cherche l'identificateur "p" dans env 2 :
+       --> 7
+      Dans env-global
+      Évaluation de ((primitive #<procedure:*>) 1 2 5 25 7) 
+      --> 1750
+      Retour à env 2
+    Retour à env 1
+  Retour à env 0

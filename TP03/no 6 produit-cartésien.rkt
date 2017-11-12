@@ -1,7 +1,7 @@
 #lang racket
 
-(displayln "André Mayers")
-(displayln "Diane Laroche")
+;Chea, Dany 17 133 040
+;Gillioz, Anthony 17 133 031
 
 (provide produit-cartésien)
 
@@ -33,12 +33,3 @@
         '())
     ))
 
-(produit-cartésien )
-
-(produit-cartésien '(X Y Z))
-
-(produit-cartésien '(* - +) '(1 2 3))
-
-(produit-cartésien '((Aa)(Bb)(Cc)) '(1 2 3))
-
-(produit-cartésien '(X Y Z) '(1 2 3) '(a b c))

@@ -1,0 +1,14 @@
+(define fn
+  (let ([x 3]
+        [y 7])
+    (λ (a b)
+      (displayln (+ a b))
+      (set! x (+ a b))
+      (set! y (- a b))
+      (list x y))))
+      
+'(+ 3 4)
+
+(fn (+ 4 5) 2)
+
+stop

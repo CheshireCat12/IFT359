@@ -1,0 +1,9 @@
+;(define x 7)
+
+(letrec ([x 3]
+		 [y (λ (z) (+ z 3))]
+;		 [x 'abcd]
+         )
+  (list x (y 1000)))
+  
+(define x 1234)
