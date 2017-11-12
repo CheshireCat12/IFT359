@@ -3,8 +3,8 @@
 (displayln "André Mayers")
 (displayln "Diane Laroche")
 
-(require (file ".\\commun.rkt")
-         (file ".\\block.rkt")
+(require (file "./commun.rkt")
+         (file "./block.rkt")
          )
 (require racket/match)
 (require racket/trace)
@@ -24,9 +24,13 @@
   ;; il faut faire une passe sur le résultat pour enlever ces tags
   ;; mon implémentation contient 4 clauses
   (λ (e)
+    
     (match e
-      [_
-       "votre code"])))
+      [(list-rest a (? n-aire? op) b rest) (traiter-n-aire a op b rest)]
+      ;[(list a (? operator?) b) (traiter-unaire e)]
+      ;[(list a (? unaire?) b) (traiter-unaire e)]
+      [_ "votre"]
+      )))
 
 (define traiter-unaire
   (λ (e)
@@ -37,8 +41,7 @@
       ;; (2) le reste non traité de l'expression i.e. (∨ c ∧ d)
   
       ;; mon implémentation contient 3 clauses : a) (¬ elt) ; b) (¬ ¬ expr)  ; c) (¬ expr)
-      [_
-       "votre code"])))
+      [(list a (? operator? op) b) (list op a b)])))
 
 
 (define traiter-n-aire
@@ -63,8 +66,39 @@
       ;; mon implémentation contient 6 clauses
       
       ; (unaire? argd)_
-       [(_ _ _ _)
-       "votre code"])))
+      
+      ;[(reste null?) (list op argg argd)]
+      [(argg op argd (list-rest (? operator? opRest) a))
+       #:when (not (eq? op (car reste)))
+       (displayln "temp")
+       (traiter-n-aire argg op (make-block (list (car reste) argd (cadr reste))) (cddr reste))]
+      [(argg op argd (list-rest (? operator? opRest) a))
+       #:when (< (pr op) (pr (car reste)))
+       (displayln "toto")
+       (traiter-n-aire argg op (make-block (list (car reste) argd (cadr reste))) (cddr reste))]
+      [(argg op argd (list-rest (? operator? opRest) a))
+       (displayln "tottoto")
+       (unwrap (traiter-n-aire (list argg argd) op (cadr reste) (cddr reste)))]
+      ;[(argg op argd reste)
+       ;#:when (eq? op (car argg))
+       ;(unwrap (list op (cdr argg) argd))]
+      [(_ _ _ _) (make-result (list op argg argd))]
+      )))
+
+(define (unwrap lst)
+  (if (null? lst)
+      '()
+      (my-append (car lst) (cdr lst))))
+
+(define (my-append lhs rhs)
+  (cond
+    [(null? lhs)
+     (unwrap rhs)]
+    [(pair? lhs)
+     (cons (car lhs)
+           (my-append (cdr lhs) rhs))]
+    [else
+     (cons lhs (unwrap rhs))]))
 
 (define i->p
   (compose map-remove-block i2p))

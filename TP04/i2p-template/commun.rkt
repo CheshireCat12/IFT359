@@ -27,7 +27,7 @@
 (define binaire?
   (λ (e)
     (or (eq? e '→)(eq? e '☀) (eq? e '←))))
-(trace binaire?)
+;(trace binaire?)
 
 (define n-aire?
   (λ (e)
