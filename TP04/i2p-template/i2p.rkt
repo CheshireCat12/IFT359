@@ -26,7 +26,8 @@
   (λ (e)
     
     (match e
-      [(list-rest a (? n-aire? op) b rest) (traiter-n-aire a op b rest)]
+      [(list-rest a (? n-aire? op) b reste) (traiter-n-aire a op b reste)]
+      [(list-rest (? unaire? op) a rest) (traiter-unaire e)]
       ;[(list a (? operator?) b) (traiter-unaire e)]
       ;[(list a (? unaire?) b) (traiter-unaire e)]
       [_ "votre"]
@@ -34,6 +35,7 @@
 
 (define traiter-unaire
   (λ (e)
+    (displayln e)
     (match e
       ;; par exemple (traiter-unaire '(¬ ¬ ¬ (a ∧ b) ∨ c ∧ d))
       ;; retourne deux valeurs (values (1) (2))
@@ -41,7 +43,14 @@
       ;; (2) le reste non traité de l'expression i.e. (∨ c ∧ d)
   
       ;; mon implémentation contient 3 clauses : a) (¬ elt) ; b) (¬ ¬ expr)  ; c) (¬ expr)
-      [(list a (? operator? op) b) (list op a b)])))
+      [(list (? unaire? op) (? element? elt)) (displayln "first")(make-block (list op elt))]
+
+      [(list-rest (? unaire? op) (? unaire? op2) reste)
+       (list op (traiter-unaire (unwrap (list op2 reste))))]
+      [(list-rest (? unaire? op) (? list? element) reste)
+       #:when (n-aire? (cadr element))
+       (traiter-n-aire (list op (unwrap (traiter-n-aire (car element) (cadr element) (cddr element) (cdddr element)))) (car reste) (cadr reste) (cddr reste))]
+      [(list-rest (? unaire? op) element reste) (displayln element) (traiter-n-aire (traiter-unaire (list op element)) (car reste) (cadr reste) (cddr reste))])))
 
 
 (define traiter-n-aire
@@ -68,21 +77,25 @@
       ; (unaire? argd)_
       
       ;[(reste null?) (list op argg argd)]
+      [(argg op (? unaire? opUnaire) reste)
+       (displayln reste)
+       (traiter-n-aire argg op (traiter-unaire (unwrap (list opUnaire reste))) '())]
       [(argg op argd (list-rest (? operator? opRest) a))
-       #:when (not (eq? op (car reste)))
+       #:when (or (> (pr op) (pr (car reste))) (and (= (pr op) (pr (car reste))) (not (eq? op (car reste)))))
        (displayln "temp")
        (traiter-n-aire argg op (make-block (list (car reste) argd (cadr reste))) (cddr reste))]
+      [(argg op (list a (? operator? newOp) c) reste)
+       (traiter-n-aire argg op (traiter-n-aire a newOp c '()) reste)]
       [(argg op argd (list-rest (? operator? opRest) a))
-       #:when (< (pr op) (pr (car reste)))
-       (displayln "toto")
-       (traiter-n-aire argg op (make-block (list (car reste) argd (cadr reste))) (cddr reste))]
-      [(argg op argd (list-rest (? operator? opRest) a))
-       (displayln "tottoto")
+       (displayln "ototo")
        (unwrap (traiter-n-aire (list argg argd) op (cadr reste) (cddr reste)))]
+      [((list a (? operator? newOp) c) op argd reste)
+       (traiter-n-aire (traiter-n-aire a newOp c '()) op argd reste)]
+      
       ;[(argg op argd reste)
-       ;#:when (eq? op (car argg))
-       ;(unwrap (list op (cdr argg) argd))]
-      [(_ _ _ _) (make-result (list op argg argd))]
+      ;#:when (eq? op (car argg))
+      ;(unwrap (list op (cdr argg) argd))]
+      [(_ _ _ _) (make-block (make-result (list op argg argd)))]
       )))
 
 (define (unwrap lst)
