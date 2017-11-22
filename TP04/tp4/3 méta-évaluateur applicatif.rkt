@@ -5,8 +5,8 @@
 (provide (all-defined-out)
          (all-from-out (file "2 structures de données - constructeur accesseur mutateur.rkt")))
 
-(displayln "nom1, prénom1")
-(displayln "nom2, prénom2")
+(displayln "Gillioz Anthony, 17 133 031")
+(displayln "Chea Dany, 17 133 040")
 
 #|
   Ce module contient le code immédiat permettant de simuler l'évaluation par environnement.
