@@ -9,19 +9,6 @@
 (displayln "nom1, prénom1")
 (displayln "nom2, prénom2")
 
-;(define-syntax my-apply
-; (λ (stx)
-;  (let ([operator (stx-cadr stx)]
-;       [num1 (stx-caddr stx)]
-;      [reste (stx-cdddr stx)])
-;(displayln (syntax->datum num1))
-;(cond
-; [(stx-null? (stx-car reste))(if (stx-list? num1)
-;                      (displayln (syntax->datum num1))
-;                     (stx-car num1))]
-;[else(datum->syntax stx `(begin
-;                   (,operator ,num1 (my-apply ,operator ,(stx-car reste) ,(stx-cdr reste)))))]
-;))))
 (define-syntax my-apply2
   (λ (stx)
     (let ([operator (stx-cadr stx)]
